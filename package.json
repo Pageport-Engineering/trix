@@ -23,7 +23,7 @@
   "author": "37signals, LLC",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/basecamp/trix/issues"
+    "url": "https://github.com/Pageport-Engineering/trix/issues"
   },
   "homepage": "https://trix-editor.org/",
   "devDependencies": {
