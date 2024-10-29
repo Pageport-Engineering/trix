@@ -27,11 +27,6 @@ export default class AttachmentView extends ObjectView {
       editable: false,
     })
 
-    const href = this.getHref()
-    if (href) {
-      innerElement = makeElement({ tagName: "a", editable: false, attributes: { href, tabindex: -1 } })
-      figure.appendChild(innerElement)
-    }
 
     if (this.attachment.hasContent()) {
       HTMLSanitizer.setHTML(innerElement, this.attachment.getContent())
@@ -39,23 +34,6 @@ export default class AttachmentView extends ObjectView {
       this.createContentNodes().forEach((node) => {
         innerElement.appendChild(node)
       })
-    }
-
-    if (this.attachment.isPending()) {
-      this.progressElement = makeElement({
-        tagName: "progress",
-        attributes: {
-          class: css.attachmentProgress,
-          value: this.attachment.getUploadProgress(),
-          max: 100,
-        },
-        data: {
-          trixMutable: true,
-          trixStoreKey: [ "progressElement", this.attachment.id ].join("/"),
-        },
-      })
-
-      figure.appendChild(this.progressElement)
     }
 
     return [ createCursorTarget("left"), figure, createCursorTarget("right") ]
@@ -67,6 +45,7 @@ export default class AttachmentView extends ObjectView {
     if (extension) {
       names.push(`${css.attachment}--${extension}`)
     }
+    names.push("w-fit")
     return names.join(" ")
   }
 

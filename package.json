@@ -1,8 +1,8 @@
 {
-  "name": "trix",
+  "name": "@pageport/trix",
   "version": "2.1.7",
   "description": "A rich text editor for everyday writing",
-  "main": "dist/trix.umd.min.js",
+  "main": "dist/trix.js",
   "module": "dist/trix.esm.min.js",
   "style": "dist/trix.css",
   "files": [
@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/basecamp/trix.git"
+    "url": "git+https://github.com/Pageport-Engineering/trix.git"
   },
   "keywords": [
     "rich text",

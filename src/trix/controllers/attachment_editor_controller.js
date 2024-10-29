@@ -90,56 +90,16 @@ export default class AttachmentEditorController extends BasicObject {
     // </div>
     const element = makeElement({
       tagName: "div",
-      className: css.attachmentToolbar,
+      className: [ css.attachmentToolbar, "flex", "justify-center" ].join(" "),
       data: { trixMutable: true },
       childNodes: makeElement({
-        tagName: "div",
-        className: "trix-button-row",
-        childNodes: makeElement({
-          tagName: "span",
-          className: "trix-button-group trix-button-group--actions",
-          childNodes: makeElement({
-            tagName: "button",
-            className: "trix-button trix-button--remove",
-            textContent: lang.remove,
-            attributes: { title: lang.remove },
-            data: { trixAction: "remove" },
-          }),
-        }),
+        tagName: "button",
+        className: "trix-button trix-button--remove",
+        textContent: lang.remove,
+        attributes: { title: lang.remove },
+        data: { trixAction: "remove" },
       }),
     })
-
-    if (this.attachment.isPreviewable()) {
-      // <div class="#{css.attachmentMetadataContainer}">
-      //   <span class="#{css.attachmentMetadata}">
-      //     <span class="#{css.attachmentName}" title="#{name}">#{name}</span>
-      //     <span class="#{css.attachmentSize}">#{size}</span>
-      //   </span>
-      // </div>
-      element.appendChild(
-        makeElement({
-          tagName: "div",
-          className: css.attachmentMetadataContainer,
-          childNodes: makeElement({
-            tagName: "span",
-            className: css.attachmentMetadata,
-            childNodes: [
-              makeElement({
-                tagName: "span",
-                className: css.attachmentName,
-                textContent: this.attachment.getFilename(),
-                attributes: { title: this.attachment.getFilename() },
-              }),
-              makeElement({
-                tagName: "span",
-                className: css.attachmentSize,
-                textContent: this.attachment.getFormattedFilesize(),
-              }),
-            ],
-          }),
-        })
-      )
-    }
 
     handleEvent("click", { onElement: element, withCallback: this.didClickToolbar })
     handleEvent("click", {
@@ -180,25 +140,15 @@ export default class AttachmentEditorController extends BasicObject {
     handleEvent("change", { onElement: textarea, withCallback: this.didChangeCaption })
     handleEvent("blur", { onElement: textarea, withCallback: this.didBlurCaption })
 
-    const figcaption = this.element.querySelector("figcaption")
-    const editingFigcaption = figcaption.cloneNode()
 
     return {
       do: () => {
-        figcaption.style.display = "none"
-        editingFigcaption.appendChild(textarea)
-        editingFigcaption.appendChild(textareaClone)
-        editingFigcaption.classList.add(`${css.attachmentCaption}--editing`)
-        figcaption.parentElement.insertBefore(editingFigcaption, figcaption)
         autoresize()
         if (this.options.editCaption) {
           return defer(() => textarea.focus())
         }
       },
-      undo() {
-        removeNode(editingFigcaption)
-        figcaption.style.display = null
-      },
+      undo() {},
     }
   })
 
