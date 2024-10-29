@@ -24,14 +24,6 @@ export default class PreviewableAttachmentView extends AttachmentView {
     return [ this.image ]
   }
 
-  createCaptionElement() {
-    const figcaption = super.createCaptionElement(...arguments)
-    if (!figcaption.textContent) {
-      figcaption.setAttribute("data-trix-placeholder", config.lang.captionPlaceholder)
-    }
-    return figcaption
-  }
-
   refresh(image) {
     if (!image) { image = this.findElement()?.querySelector("img") }
     if (image) {
