@@ -41,8 +41,6 @@ export default class AttachmentView extends ObjectView {
       })
     }
 
-    innerElement.appendChild(this.createCaptionElement())
-
     if (this.attachment.isPending()) {
       this.progressElement = makeElement({
         tagName: "progress",
@@ -61,39 +59,6 @@ export default class AttachmentView extends ObjectView {
     }
 
     return [ createCursorTarget("left"), figure, createCursorTarget("right") ]
-  }
-
-  createCaptionElement() {
-    const figcaption = makeElement({ tagName: "figcaption", className: css.attachmentCaption })
-    const caption = this.attachmentPiece.getCaption()
-    if (caption) {
-      figcaption.classList.add(`${css.attachmentCaption}--edited`)
-      figcaption.textContent = caption
-    } else {
-      let name, size
-      const captionConfig = this.getCaptionConfig()
-      if (captionConfig.name) {
-        name = this.attachment.getFilename()
-      }
-      if (captionConfig.size) {
-        size = this.attachment.getFormattedFilesize()
-      }
-
-      if (name) {
-        const nameElement = makeElement({ tagName: "span", className: css.attachmentName, textContent: name })
-        figcaption.appendChild(nameElement)
-      }
-
-      if (size) {
-        if (name) {
-          figcaption.appendChild(document.createTextNode(" "))
-        }
-        const sizeElement = makeElement({ tagName: "span", className: css.attachmentSize, textContent: size })
-        figcaption.appendChild(sizeElement)
-      }
-    }
-
-    return figcaption
   }
 
   getClassName() {
