@@ -59,6 +59,7 @@
     "build-js": "rollup -c",
     "build-assets": "cp -f assets/*.html dist/",
     "build": "yarn run build-js && yarn run build-css && yarn run build-assets",
+    "prepare": "yarn build",
     "watch": "rollup -c -w",
     "lint": "eslint .",
     "pretest": "yarn run lint && yarn run build",
