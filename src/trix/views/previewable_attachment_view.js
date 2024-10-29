@@ -1,4 +1,3 @@
-import * as config from "trix/config"
 import { makeElement } from "trix/core/helpers"
 
 import AttachmentView from "trix/views/attachment_view"
